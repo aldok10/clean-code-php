@@ -60,7 +60,7 @@ Gak semua prinsip di sini kudu lu telen mentah-mentah, dan gak semuanya bakal di
 
 Terinspirasi dari [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript).
 
-Meskipun masih banyak yang pake PHP 5, tapi kebanyakan contoh di sini cuma jalan di PHP 8.4 ke atas. Jadi, update dong PHP lu!
+Meskipun masih banyak yang pake PHP 7.2, tapi sebagian contoh di sini cuma jalan di PHP 8.0 ke atas. Jadi, update dong PHP lu!
 
 ## Variabel (Biar Gak Bingung)
 
