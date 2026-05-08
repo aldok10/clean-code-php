@@ -1,91 +1,91 @@
-# Clean Code PHP (Bahasa Indonesia)
+# Clean Code PHP (Versi Gen Z 2026)
 
-Secara umum, kode disebut bersih jika dapat dipahami dengan mudah oleh semua orang di dalam tim. Kode yang bersih dapat dibaca dan ditingkatkan oleh pengembang selain penulis aslinya. Dengan keterpahaman muncul keterbacaan, kemampuan untuk diubah, diperluas, dan dipelihara.
+Gini ya, kode itu dianggap 'clean' kalo vibes-nya dapet dan gampang dipahami sama semua orang di tim. Kode yang clean itu bukan cuma elu yang ngerti, tapi dev lain juga bisa baca dan upgrade tanpa kena mental. Kalo udah paham, ngerawatnya juga jadi slay, gampang diubah, dan gak bikin pusing, no cap!
 
 _____________________________________
 
-## Aturan umum
-1. Ikuti konvensi standar.
-2. Tetap sederhana (KISS - Keep It Simple Stupid). Lebih sederhana selalu lebih baik. Kurangi kompleksitas sebanyak mungkin.
-3. Aturan pramuka (Boy scout rule). Tinggalkan tempat perkemahan lebih bersih dari saat Anda menemukannya.
-4. Selalu cari akar penyebab masalah.
+## Aturan Umum (General Rules)
+1. Ikuti konvensi standar, jangan sok asik bikin aturan sendiri.
+2. KISS (Keep It Simple Stupid). Makin simpel makin GG. Kurangi keribetan semaksimal mungkin, biar gak *cooked*.
+3. Boy scout rule. Balikin tempat kemah lebih bersih dari pas lu dateng. Kalo liat kode berantakan, rapihin dikit lah.
+4. Selalu cari root cause. Jangan cuma benerin permukaannya doang, cari masalah utamanya biar gak *red flag*.
 
-## Aturan desain
-1. Simpan data yang dapat dikonfigurasi di level tinggi.
-2. Lebih pilih polimorfisme daripada if/else atau switch/case.
-3. Pisahkan kode multi-threading.
-4. Cegah konfigurabilitas yang berlebihan.
-5. Gunakan dependency injection.
-6. Ikuti Hukum Demeter (Law of Demeter). Sebuah kelas hanya boleh mengetahui dependensi langsungnya.
+## Aturan Desain (Design Rules)
+1. Simpan data konfigurasi di level tinggi, jangan diumpetin di dalem-dalem.
+2. Pake polimorfisme daripada if/else atau switch/case yang kepanjangan. Biar lebih *clean*.
+3. Pisahin kode multi-threading biar gak *cluttered*.
+4. Jangan over-configurability, secukupnya aja biar gak pusing.
+5. Pake Dependency Injection. Ini kuncinya biar kode lu gak kaku.
+6. Law of Demeter. Sebuah kelas cuma boleh kenal sama bestie-nya (dependensi langsung) doang.
 
-## Tips keterpahaman
-1. Konsisten. Jika Anda melakukan sesuatu dengan cara tertentu, lakukan semua hal serupa dengan cara yang sama.
-2. Gunakan variabel penjelas.
-3. Enkapsulasi kondisi batas. Kondisi batas sulit untuk dilacak. Letakkan pemrosesan untuk kondisi tersebut di satu tempat.
-4. Lebih pilih objek nilai (value object) khusus daripada tipe primitif.
-5. Hindari dependensi logis. Jangan menulis metode yang bekerja dengan benar tergantung pada hal lain di kelas yang sama.
-6. Hindari pengkondisian negatif.
+## Tips Keterpahaman (Understandability Tips)
+1. Konsisten terus. Kalo lu udah pake satu cara, ya pake cara itu terus buat hal serupa. Jangan menye-menye.
+2. Pake variabel penjelas. Jangan cuma $x atau $y, gak jelas banget.
+3. Enkapsulasi kondisi batas. Kondisi yang ribet taruh di satu tempat aja biar gak *chaos*.
+4. Pake value objects daripada tipe primitif. Lebih berkelas gitu loh.
+5. Hindari dependensi logis. Jangan bikin metode yang jalannya tergantung 'mood' hal lain di kelas yang sama.
+6. Hindari pengkondisian negatif. Pake yang positif-positif aja biar gak pusing bacanya.
 
-## Aturan penamaan
-1. Pilih nama yang deskriptif dan tidak ambigu.
-2. Buat pembedaan yang bermakna.
-3. Gunakan nama yang dapat diucapkan.
-4. Gunakan nama yang dapat dicari.
-5. Ganti angka ajaib (magic numbers) dengan konstanta bernama.
-6. Hindari pengkodean (encodings). Jangan tambahkan awalan atau informasi tipe.
+## Aturan Penamaan (Names Rules)
+1. Pilih nama yang deskriptif dan gak ambigu. Gak usah tebak-tebakan.
+2. Bikin pembedaan yang bermakna. Jangan asal beda doang.
+3. Pake nama yang bisa diucapin, biar pas ngobrol gak keseleo lidah.
+4. Pake nama yang gampang dicari (searchable).
+5. Ganti magic numbers pake konstanta bernama. Gak jelas banget itu angka dateng dari mana.
+6. Hindari encoding. Gak usah pake prefix atau info tipe yang ribet-ribet.
 
-## Aturan fungsi
-1. Kecil.
-2. Lakukan satu hal.
-3. Gunakan nama yang deskriptif.
-4. Lebih pilih argumen yang lebih sedikit.
-5. Tidak memiliki efek samping.
-6. Jangan gunakan argumen bendera (flag). Bagi metode menjadi beberapa metode independen yang dapat dipanggil dari klien tanpa bendera tersebut.
+## Aturan Fungsi (Functions Rules)
+1. Kecil aja, jangan kayak novel.
+2. Satu fungsi satu tugas. Jangan serakah.
+3. Pake nama yang deskriptif, biar langsung paham itu fungsi buat apa.
+4. Argumen dikit aja, makin dikit makin mantap.
+5. Gak boleh ada efek samping (side effects) yang aneh-aneh.
+6. Jangan pake argumen bendera (flag). Mending dipisah jadi fungsi sendiri-sendiri, biar lebih *straightforward*.
 
-## Aturan komentar
-1. Selalu coba jelaskan diri Anda dalam kode.
-2. Jangan berlebihan (redundant).
-3. Jangan tambahkan kebisingan yang jelas.
-4. Jangan gunakan komentar penutup kurung kurawal.
-5. Jangan mengomentari kode (comment out). Hapus saja.
-6. Gunakan sebagai penjelasan niat.
-7. Gunakan sebagai klarifikasi kode.
-8. Gunakan sebagai peringatan konsekuensi.
+## Aturan Komentar (Comments Rules)
+1. Usahain kodenya udah jelas sendiri tanpa perlu dikomenin.
+2. Jangan berlebihan, gak usah curhat di komen.
+3. Jangan nambahin kebisingan yang gak perlu.
+4. Gak usah pake komen di penutup kurung kurawal, ganggu pemandangan.
+5. Jangan komenin kode lama (comment out). Hapus aja, kan ada Git, no worries!
+6. Pake buat jelasin niat lu apa (intent).
+7. Pake buat klarifikasi bagian yang emang agak *tricky*.
+8. Pake buat kasih peringatan konsekuensi kalo kode itu diubah asal-asalan.
 
-## Struktur kode sumber
-1. Pisahkan konsep secara vertikal.
-2. Kode yang terkait harus muncul padat secara vertikal.
-3. Deklarasikan variabel dekat dengan penggunaannya.
-4. Fungsi yang dependen harus berdekatan.
-5. Fungsi yang serupa harus berdekatan.
-6. Letakkan fungsi ke arah bawah.
-7. Jaga baris tetap pendek.
-8. Jangan gunakan penyelarasan horizontal.
-9. Gunakan spasi kosong untuk mengaitkan hal-hal yang berhubungan dan memisahkan yang tidak berhubungan kuat.
-10. Jangan merusak indentasi.
+## Struktur Kode Sumber (Source Code Structure)
+1. Pisahin konsep secara vertikal.
+2. Kode yang se-vibe harus deketan secara vertikal.
+3. Deklarasi variabel deket sama tempat pakenya.
+4. Fungsi yang saling ketergantungan harus deketan.
+5. Fungsi yang mirip juga harus deketan.
+6. Taruh fungsi ke arah bawah (downward direction).
+7. Baris jangan kepanjangan, capek scroll-nya.
+8. Gak usah diselarasin secara horizontal (horizontal alignment), malah aneh liatnya.
+9. Pake spasi buat misahin atau nyatuin hal yang emang nyambung.
+10. Jangan ngerusak indentasi, *red flag* banget itu.
 
-## Objek dan struktur data
-1. Sembunyikan struktur internal.
-2. Lebih pilih struktur data.
-3. Hindari struktur hibrida (setengah objek dan setengah data).
-4. Harus kecil.
-5. Lakukan satu hal.
-6. Jumlah variabel instansi yang sedikit.
-7. Kelas dasar tidak boleh tahu apa-apa tentang turunannya.
-8. Lebih baik memiliki banyak fungsi daripada memasukkan beberapa kode ke dalam fungsi untuk memilih perilaku.
-9. Lebih pilih metode non-statis daripada metode statis.
+## Objek dan Struktur Data
+1. Sembunyiin struktur internal. Rahasia perusahaan!
+2. Lebih pilih struktur data yang simpel.
+3. Hindari struktur hibrida (setengah objek setengah data). Gak jelas identitasnya.
+4. Harus kecil, jangan kegedean.
+5. Satu tugas aja cukup.
+6. Variabel instansi dikit aja.
+7. Kelas dasar gak boleh tau apa-apa soal turunannya.
+8. Mending punya banyak fungsi daripada masukin kode buat milih perilaku.
+9. Lebih pilih metode non-statis daripada statis, biar lebih fleksibel.
 
-## Pengujian
-1. Satu assert per pengujian.
-2. Mudah dibaca.
-3. Cepat.
-4. Independen.
-5. Dapat diulang (repeatable).
+## Pengujian (Tests)
+1. Satu assert per test. Gak usah borongan.
+2. Harus gampang dibaca, biar tau kalo error kenapa.
+3. Harus kenceng (fast). Gak jaman nunggu lama.
+4. Independen, jangan tergantung sama test lain.
+5. Bisa diulang kapan aja (repeatable) dengan hasil yang sama.
 
-## Bau kode (Code smells)
-1. Kaku (Rigidity). Perangkat lunak sulit diubah. Perubahan kecil menyebabkan serangkaian perubahan berikutnya.
-2. Rapuh (Fragility). Perangkat lunak rusak di banyak tempat karena satu perubahan.
-3. Tidak bisa dipindah (Immobility). Anda tidak dapat menggunakan kembali bagian kode di proyek lain karena risiko yang terlibat dan upaya yang tinggi.
-4. Kompleksitas yang tidak perlu.
-5. Pengulangan yang tidak perlu.
-6. Kabur (Opacity). Kode sulit dipahami.
+## Bau Kode (Code Smells)
+1. Kaku (Rigidity). Kode susah diubah, sekali ubah dikit malah merembet ke mana-mana.
+2. Rapuh (Fragility). Sekali diubah, eh malah rusak semua di tempat lain. Gak slay banget.
+3. Gak bisa dipindah (Immobility). Kode susah dipake lagi di tempat lain karena terlalu kaku.
+4. Kompleksitas yang gak perlu. Gak usah sok ribet.
+5. Pengulangan yang gak perlu. Jangan kayak kaset rusak.
+6. Kabur (Opacity). Kode susah dimengerti, bikin pusing tujuh keliling.
