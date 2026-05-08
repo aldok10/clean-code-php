@@ -18,9 +18,11 @@ Secara umum, kode itu dianggap 'clean' kalo vibes-nya dapet dan gampang dipahami
   3. [Perbandingan (Comparison)](#perbandingan-comparison)
      * [Pake identical comparison (===)](#pake-identical-comparison)
      * [Null coalescing operator (??)](#null-coalescing-operator)
+     * [Ekspresi Match (PHP 8.0+)](#ekspresi-match-php-80)
   4. [Fungsi (Functions)](#fungsi-functions)
      * [Pake default arguments daripada ribet pake kondisional](#pake-default-arguments-daripada-ribet-pake-kondisional)
      * [Argumen fungsi (maksimal 2 biar gak pusing)](#argumen-fungsi-maksimal-2-biar-gak-pusing)
+     * [Constructor Property Promotion (PHP 8.0+)](#constructor-property-promotion-php-80)
      * [Nama fungsi harus nunjukin apa yang dilakuin](#nama-fungsi-harus-nunjukin-apa-yang-dilakuin)
      * [Fungsi cuma boleh satu level abstraksi](#fungsi-cuma-boleh-satu-level-abstraksi)
      * [Jangan pake flag sebagai parameter fungsi](#jangan-pake-flag-sebagai-parameter-fungsi)
@@ -36,6 +38,7 @@ Secara umum, kode itu dianggap 'clean' kalo vibes-nya dapet dan gampang dipahami
   5. [Objek dan Struktur Data](#objek-dan-struktur-data)
      * [Pake enkapsulasi objek](#pake-enkapsulasi-objek)
      * [Bikin member objek jadi private/protected](#bikin-member-objek-jadi-privateprotected)
+     * [Property Hooks & Asymmetric Visibility (PHP 8.4+)](#property-hooks--asymmetric-visibility-php-84)
   6. [Kelas (Classes)](#kelas-classes)
      * [Lebih pilih komposisi daripada warisan (inheritance)](#lebih-pilih-komposisi-daripada-warisan)
      * [Hindari fluent interfaces](#hindari-fluent-interfaces)
@@ -57,7 +60,7 @@ Gak semua prinsip di sini kudu lu telen mentah-mentah, dan gak semuanya bakal di
 
 Terinspirasi dari [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript).
 
-Meskipun masih banyak yang pake PHP 5, tapi kebanyakan contoh di sini cuma jalan di PHP 7.1 ke atas. Jadi, update dong PHP lu!
+Meskipun masih banyak yang pake PHP 5, tapi kebanyakan contoh di sini cuma jalan di PHP 8.4 ke atas. Jadi, update dong PHP lu!
 
 ## Variabel (Biar Gak Bingung)
 
@@ -334,6 +337,40 @@ if ($a !== $b) {
 
 ### Null coalescing operator (??)
 
+### Ekspresi Match (PHP 8.0+)
+
+Kalo lu punya banyak kondisi, mending pake `match` daripada `switch`. Lebih ringkas, lebih aman, dan gak perlu pake `break` yang bikin ribet. Slay banget!
+
+**Bad:**
+```php
+switch ($status) {
+    case 200:
+        $message = 'OK';
+        break;
+    case 404:
+        $message = 'Not Found';
+        break;
+    case 500:
+        $message = 'Internal Server Error';
+        break;
+    default:
+        $message = 'Unknown Status';
+        break;
+}
+```
+
+**Good:**
+```php
+$message = match ($status) {
+    200 => 'OK',
+    404 => 'Not Found',
+    500 => 'Internal Server Error',
+    default => 'Unknown Status',
+};
+```
+
+**[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
+
 **Bad:**
 ```php
 if (isset($_GET['name'])) {
@@ -375,6 +412,38 @@ function createMicrobrewery(string $breweryName = 'Hipster Brew Co.'): void
 **[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
 ### Argumen fungsi (maksimal 2 biar gak pusing)
+
+### Constructor Property Promotion (PHP 8.0+)
+
+Gak perlu deklarasi variabel berkali-kali di kelas. Langsung aja di constructor, biar kode lu makin GG dan ringkas.
+
+**Bad:**
+```php
+class User
+{
+    public string $name;
+    public string $email;
+
+    public function __construct(string $name, string $email)
+    {
+        $this->name = $name;
+        $this->email = $email;
+    }
+}
+```
+
+**Good:**
+```php
+class User
+{
+    public function __construct(
+        public string $name,
+        public string $email,
+    ) {}
+}
+```
+
+**[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
 **Bad:**
 ```php
@@ -881,6 +950,44 @@ echo $employee->getName(); // John Doe
 **[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
 ### Bikin member objek jadi private/protected
+
+### Property Hooks & Asymmetric Visibility (PHP 8.4+)
+
+Nah ini fitur paling baru dan paling slay! Lu bisa kontrol akses baca/tulis variabel langsung tanpa perlu ribet bikin getter/setter manual. Bisa pake `public private(set)` juga biar cuma bisa diubah di dalem kelas.
+
+**Bad:**
+```php
+class User
+{
+    private string $name;
+
+    public function getName(): string
+    {
+        return ucfirst($this->name);
+    }
+
+    public function setName(string $name): void
+    {
+        $this->name = trim($name);
+    }
+}
+```
+
+**Good:**
+```php
+class User
+{
+    public string $name {
+        get => ucfirst($this->name);
+        set => trim($value);
+    }
+
+    // Cuma bisa dibaca dari luar, tapi cuma bisa di-set dari dalem. GG!
+    public private(set) string $email;
+}
+```
+
+**[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
 **Bad:**
 ```php
