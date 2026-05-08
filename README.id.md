@@ -1,8 +1,28 @@
 # Clean Code PHP (Versi Gen Z 2026)
 
-Gini ya, kode itu dianggap 'clean' kalo vibes-nya dapet dan gampang dipahami sama semua orang di tim. Kode yang clean itu bukan cuma elu yang ngerti, tapi dev lain juga bisa baca dan upgrade tanpa kena mental. Kalo udah paham, ngerawatnya juga jadi slay, gampang diubah, dan gak bikin pusing, no cap!
+Secara umum, kode itu dianggap 'clean' kalo vibes-nya dapet dan gampang dipahami sama semua orang di tim. Kode yang clean itu bukan cuma elu yang ngerti, tapi dev lain juga bisa baca dan upgrade tanpa kena mental. Kalo udah paham, ngerawatnya juga jadi slay, gampang diubah, dan gak bikin pusing, no cap!
 
-_____________________________________
+## Daftar Isi (Biar Gak Nyasar)
+
+  1. [Intro Dulu Nih](#intro-dulu-nih)
+  2. [Variabel (Biar Gak Bingung)](#variabel-biar-gak-bingung)
+  3. [Perbandingan (Comparison)](#perbandingan-comparison)
+  4. [Fungsi (Functions)](#fungsi-functions)
+  5. [Objek dan Struktur Data](#objek-dan-struktur-data)
+  6. [Kelas (Classes)](#kelas-classes)
+  7. [SOLID](#solid)
+  8. [Don’t Repeat Yourself (DRY)](#dont-repeat-yourself-dry)
+  9. [Terjemahan (Translations)](#terjemahan-translations)
+
+## Intro Dulu Nih
+
+Prinsip-prinsip rekayasa perangkat lunak, diambil dari bukunya Robert C. Martin yang judulnya [*Clean Code*](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882), tapi ini versi yang udah diadaptasi buat PHP. Ini bukan sekadar panduan gaya (style guide), tapi ini kompas buat lu biar bisa bikin software yang enak dibaca, bisa dipake lagi, dan gampang di-refactor di PHP.
+
+Gak semua prinsip di sini kudu lu telen mentah-mentah, dan gak semuanya bakal disetujui sama semua orang. Ini cuma panduan aja, tapi ini hasil godokan bertahun-tahun dari pengalaman kolektif para suhu *Clean Code*.
+
+Terinspirasi dari [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript).
+
+Meskipun masih banyak yang pake PHP 5, tapi kebanyakan contoh di sini cuma jalan di PHP 7.1 ke atas. Jadi, update dong PHP lu!
 
 ## Aturan Umum (General Rules)
 1. Ikuti konvensi standar, jangan sok asik bikin aturan sendiri.
@@ -10,82 +30,156 @@ _____________________________________
 3. Boy scout rule. Balikin tempat kemah lebih bersih dari pas lu dateng. Kalo liat kode berantakan, rapihin dikit lah.
 4. Selalu cari root cause. Jangan cuma benerin permukaannya doang, cari masalah utamanya biar gak *red flag*.
 
-## Aturan Desain (Design Rules)
-1. Simpan data konfigurasi di level tinggi, jangan diumpetin di dalem-dalem.
-2. Pake polimorfisme daripada if/else atau switch/case yang kepanjangan. Biar lebih *clean*.
-3. Pisahin kode multi-threading biar gak *cluttered*.
-4. Jangan over-configurability, secukupnya aja biar gak pusing.
-5. Pake Dependency Injection. Ini kuncinya biar kode lu gak kaku.
-6. Law of Demeter. Sebuah kelas cuma boleh kenal sama bestie-nya (dependensi langsung) doang.
+## Variabel (Biar Gak Bingung)
 
-## Tips Keterpahaman (Understandability Tips)
-1. Konsisten terus. Kalo lu udah pake satu cara, ya pake cara itu terus buat hal serupa. Jangan menye-menye.
-2. Pake variabel penjelas. Jangan cuma $x atau $y, gak jelas banget.
-3. Enkapsulasi kondisi batas. Kondisi yang ribet taruh di satu tempat aja biar gak *chaos*.
-4. Pake value objects daripada tipe primitif. Lebih berkelas gitu loh.
-5. Hindari dependensi logis. Jangan bikin metode yang jalannya tergantung 'mood' hal lain di kelas yang sama.
-6. Hindari pengkondisian negatif. Pake yang positif-positif aja biar gak pusing bacanya.
+### Pake nama variabel yang bermakna dan enak disebut
 
-## Aturan Penamaan (Names Rules)
-1. Pilih nama yang deskriptif dan gak ambigu. Gak usah tebak-tebakan.
-2. Bikin pembedaan yang bermakna. Jangan asal beda doang.
-3. Pake nama yang bisa diucapin, biar pas ngobrol gak keseleo lidah.
-4. Pake nama yang gampang dicari (searchable).
-5. Ganti magic numbers pake konstanta bernama. Gak jelas banget itu angka dateng dari mana.
-6. Hindari encoding. Gak usah pake prefix atau info tipe yang ribet-ribet.
+**Bad:**
+```php
+$ymdstr = $moment->format('y-m-d');
+```
 
-## Aturan Fungsi (Functions Rules)
-1. Kecil aja, jangan kayak novel.
-2. Satu fungsi satu tugas. Jangan serakah.
-3. Pake nama yang deskriptif, biar langsung paham itu fungsi buat apa.
-4. Argumen dikit aja, makin dikit makin mantap.
-5. Gak boleh ada efek samping (side effects) yang aneh-aneh.
-6. Jangan pake argumen bendera (flag). Mending dipisah jadi fungsi sendiri-sendiri, biar lebih *straightforward*.
+**Good:**
+```php
+$currentDate = $moment->format('y-m-d');
+```
 
-## Aturan Komentar (Comments Rules)
-1. Usahain kodenya udah jelas sendiri tanpa perlu dikomenin.
-2. Jangan berlebihan, gak usah curhat di komen.
-3. Jangan nambahin kebisingan yang gak perlu.
-4. Gak usah pake komen di penutup kurung kurawal, ganggu pemandangan.
-5. Jangan komenin kode lama (comment out). Hapus aja, kan ada Git, no worries!
-6. Pake buat jelasin niat lu apa (intent).
-7. Pake buat klarifikasi bagian yang emang agak *tricky*.
-8. Pake buat kasih peringatan konsekuensi kalo kode itu diubah asal-asalan.
+### Pake kosakata yang sama buat tipe variabel yang sama
 
-## Struktur Kode Sumber (Source Code Structure)
-1. Pisahin konsep secara vertikal.
-2. Kode yang se-vibe harus deketan secara vertikal.
-3. Deklarasi variabel deket sama tempat pakenya.
-4. Fungsi yang saling ketergantungan harus deketan.
-5. Fungsi yang mirip juga harus deketan.
-6. Taruh fungsi ke arah bawah (downward direction).
-7. Baris jangan kepanjangan, capek scroll-nya.
-8. Gak usah diselarasin secara horizontal (horizontal alignment), malah aneh liatnya.
-9. Pake spasi buat misahin atau nyatuin hal yang emang nyambung.
-10. Jangan ngerusak indentasi, *red flag* banget itu.
+**Bad:**
+```php
+getUserInfo();
+getUserData();
+getUserRecord();
+getUserProfile();
+```
 
-## Objek dan Struktur Data
-1. Sembunyiin struktur internal. Rahasia perusahaan!
-2. Lebih pilih struktur data yang simpel.
-3. Hindari struktur hibrida (setengah objek setengah data). Gak jelas identitasnya.
-4. Harus kecil, jangan kegedean.
-5. Satu tugas aja cukup.
-6. Variabel instansi dikit aja.
-7. Kelas dasar gak boleh tau apa-apa soal turunannya.
-8. Mending punya banyak fungsi daripada masukin kode buat milih perilaku.
-9. Lebih pilih metode non-statis daripada statis, biar lebih fleksibel.
+**Good:**
+```php
+getUser();
+```
 
-## Pengujian (Tests)
-1. Satu assert per test. Gak usah borongan.
-2. Harus gampang dibaca, biar tau kalo error kenapa.
-3. Harus kenceng (fast). Gak jaman nunggu lama.
-4. Independen, jangan tergantung sama test lain.
-5. Bisa diulang kapan aja (repeatable) dengan hasil yang sama.
+### Pake nama yang gampang dicari
 
-## Bau Kode (Code Smells)
-1. Kaku (Rigidity). Kode susah diubah, sekali ubah dikit malah merembet ke mana-mana.
-2. Rapuh (Fragility). Sekali diubah, eh malah rusak semua di tempat lain. Gak slay banget.
-3. Gak bisa dipindah (Immobility). Kode susah dipake lagi di tempat lain karena terlalu kaku.
-4. Kompleksitas yang gak perlu. Gak usah sok ribet.
-5. Pengulangan yang gak perlu. Jangan kayak kaset rusak.
-6. Kabur (Opacity). Kode susah dimengerti, bikin pusing tujuh keliling.
+Kita tuh bakal lebih sering baca kode daripada nulis kode. Bikin nama yang gampang dicari, no cap!
+
+**Bad:**
+```php
+// 448 ini apa coba?
+$result = $serializer->serialize($data, 448);
+```
+
+**Good:**
+```php
+$json = $serializer->serialize($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+```
+
+## Fungsi (Functions)
+
+### Argumen fungsi (maksimal 2 biar gak pusing)
+
+Membatasi jumlah parameter itu penting banget biar ngetest-nya gampang. Kalo kebanyakan ntar meledak otaknya.
+
+**Bad:**
+```php
+function createMenu(string $title, string $body, string $buttonText, bool $cancellable): void
+{
+    // ...
+}
+```
+
+**Good:**
+```php
+class MenuConfig
+{
+    public $title;
+    public $body;
+    public $buttonText;
+    public $cancellable = true;
+}
+
+$config = new MenuConfig();
+$config->title = 'Foo';
+$config->body = 'Bar';
+$config->buttonText = 'Baz';
+$config->cancellable = true;
+
+function createMenu(MenuConfig $config): void
+{
+    // ...
+}
+```
+
+## SOLID
+
+### Single Responsibility Principle (SRP)
+
+"Sebuah kelas cuma boleh punya satu alasan buat berubah." Jangan serakah, satu kelas satu tugas aja biar gak *chaos*.
+
+**Bad:**
+```php
+class UserSettings
+{
+    private $user;
+
+    public function __construct(User $user)
+    {
+        $user = $user;
+    }
+
+    public function changeSettings(array $settings): void
+    {
+        if ($this->verifyCredentials()) {
+            // ...
+        }
+    }
+
+    private function verifyCredentials(): bool
+    {
+        // ...
+    }
+}
+```
+
+**Good:**
+```php
+class UserAuth
+{
+    private $user;
+
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
+
+    public function verifyCredentials(): bool
+    {
+        // ...
+    }
+}
+
+class UserSettings
+{
+    private $user;
+    private $auth;
+
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+        $this->auth = new UserAuth($user);
+    }
+
+    public function changeSettings(array $settings): void
+    {
+        if ($this->auth->verifyCredentials()) {
+            // ...
+        }
+    }
+}
+```
+
+## Don’t Repeat Yourself (DRY)
+
+Jangan males, jangan copy-paste terus. Kalo ada kode yang sama di banyak tempat, mending diabstraksiin. Duplikasi kode itu *red flag* banget karena kalo ada yang mau diubah, lu harus keliling dunia buat benerin semuanya.
+
+**[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
