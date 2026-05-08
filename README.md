@@ -66,6 +66,10 @@ Meskipun masih banyak yang pake PHP 7.2, tapi sebagian contoh di sini cuma jalan
 
 ### Pake nama variabel yang bermakna dan enak disebut
 
+**Kenapa ini penting?**
+Biar lu gak bingung sendiri pas baca kode minggu depan. Nama yang jelas bikin kode lu 'self-documenting'. Gak perlu nanya-nanya lagi ini buat apa. No cap!
+
+
 **Bad:**
 ```php
 $ymdstr = $moment->format('y-m-d');
@@ -79,6 +83,10 @@ $currentDate = $moment->format('y-m-d');
 **[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
 ### Pake kosakata yang sama buat tipe variabel yang sama
+
+**Kenapa ini penting?**
+Konsistensi itu kuncinya. Kalo satu tempat pake \`user\`, tempat lain jangan pake \`customer\` buat hal yang sama. Bingung kan? Biar vibes kodenya tetep satu frekuensi.
+
 
 **Bad:**
 ```php
@@ -157,6 +165,10 @@ $user->access ^= User::ACCESS_CREATE;
 
 ### Pake explanatory variables
 
+**Kenapa ini penting?**
+Regex atau logika yang ribet itu pusing bacanya. Dengan variabel penjelas, lu ngasih tau 'apa' maksud dari logika itu, bukan cuma 'gimana' cara kerjanya. Slay!
+
+
 **Bad:**
 ```php
 $address = 'One Infinite Loop, Cupertino 95014';
@@ -178,6 +190,10 @@ saveCityZipCode($matches['city'], $matches['zipCode']);
 **[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
 ### Jangan nesting dalem-dalem, mending pake "early return" (Part 1)
+
+**Kenapa ini penting?**
+Nesting dalem-dalem itu bikin 'Arrow Code' yang pusing banget dibaca. Dengan early return, lu ngebuang kondisi yang gak valid duluan, jadi jalur utama kode lu tetep lurus dan gampang dipahami. GG!
+
 
 Kebanyakan if-else bikin kode lu jadi kayak labirin, pusing bacanya. Mending jujur dan to the point aja.
 
@@ -221,6 +237,10 @@ function isShopOpen(string $day): bool
 
 ### Jangan nesting dalem-dalem, mending pake "early return" (Part 2)
 
+**Kenapa ini penting?**
+Nesting dalem-dalem itu bikin 'Arrow Code' yang pusing banget dibaca. Dengan early return, lu ngebuang kondisi yang gak valid duluan, jadi jalur utama kode lu tetep lurus dan gampang dipahami. GG!
+
+
 **Bad:**
 ```php
 function fibonacci(int $n)
@@ -257,6 +277,10 @@ function fibonacci(int $n): int
 **[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
 ### Hindari Mental Mapping
+
+**Kenapa ini penting?**
+Jangan bikin otak dev lain kerja rodi cuma buat inget-inget \`$i\` itu aslinya \`$user_index\`. Pake nama yang eksplisit biar kodenya gampang di-scan.
+
 
 Jangan paksa pembaca kode lu buat nerjemahin apa maksud dari variabel itu. To the point aja, gak usah pake kode-kodean.
 
@@ -353,6 +377,10 @@ if ($a !== $b) {
 **[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
 ### Null coalescing operator (??)
+
+**Kenapa ini penting?**
+Biar kode lu lebih bersih dan gak penuh sama \`isset()\` atau \`empty()\`. Ini ngebantu lu nanganin default value dengan cara yang lebih 'elegant' dan ringkas. Slay!
+
 Ini operator kece yang ada sejak PHP 7. Pake `??` itu cara cepet (syntactic sugar) daripada lu ribet pake ternary sama `isset()`. Kalo nilai pertamanya ada dan gak null, itu yang diambil; kalo gak ada ya ambil nilai keduanya.
 
 **Bad:**
@@ -375,6 +403,10 @@ $name = $_GET['name'] ?? $_POST['name'] ?? 'nobody';
 
 
 ### Match Expression (PHP 8.0+)
+
+**Kenapa ini penting?**
+Match itu lebih strict dan gak butuh break. Lu gak bakal kelupaan break yang bikin bug aneh. Lebih ringkas dan modern, kode lu jadi kelihatan lebih pro. No cap!
+
 
 Kalo lu punya banyak kondisi, mending pake `match` daripada `switch`. Lebih ringkas, lebih aman, dan gak perlu pake `break` yang bikin ribet. Slay banget!
 
@@ -450,7 +482,15 @@ function createMicrobrewery(string $breweryName = 'Hipster Brew Co.'): void
 
 ### Function arguments (maksimal 2 biar gak pusing)
 
+**Kenapa ini penting?**
+Makin dikit argumen, makin gampang ditest. Bayangin ngetest fungsi dengan 8 argumen, kombinasi kasusnya bisa bikin mual. Kalo kebanyakan, mending dipacking jadi objek aja.
+
+
 ### Constructor Property Promotion (PHP 8.0+)
+
+**Kenapa ini penting?**
+Ngurangin 'boilerplate' yang ngebosenin. Lu gak perlu ngetik variabel berkali-kali. Kode jadi lebih ramping dan lu bisa fokus ke logika utamanya. GG!
+
 
 Gak perlu deklarasi variabel berkali-kali di kelas. Langsung aja di constructor, biar kode lu makin GG dan ringkas.
 
@@ -650,6 +690,10 @@ function createTempFile(string $name): void
 **[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
 ### Hindari Efek Samping (Side Effects)
+
+**Kenapa ini penting?**
+Fungsi yang ngerubah variabel global itu 'unpredictable'. Pas lu panggil di satu tempat, eh malah ngerusak tempat lain. Ini bikin debugging jadi mimpi buruk. Keep it pure!
+
 
 **Bad:**
 ```php
@@ -947,6 +991,10 @@ inventoryTracker('apples', $request, 'www.inventory-awesome.io');
 
 ### Pake object encapsulation
 
+**Kenapa ini penting?**
+Biar state objek lu gak diacak-acak dari luar secara liar. Dengan enkapsulasi, lu punya kontrol penuh gimana data itu diakses atau diubah. Rahasia perusahaan aman, no cap!
+
+
 **Bad:**
 ```php
 class Employee
@@ -989,6 +1037,10 @@ echo $employee->getName(); // John Doe
 ### Bikin member objek jadi private/protected members
 
 ### Property Hooks & Asymmetric Visibility (PHP 8.4+)
+
+**Kenapa ini penting?**
+Ini evolusi paling GG buat nanganin logic getter/setter tanpa bikin fungsi tambahan yang banyak. Lu dapet fleksibilitas maksimal dengan kode minimal. Modern banget!
+
 
 Nah ini fitur paling baru dan paling slay! Lu bisa kontrol akses baca/tulis variabel langsung tanpa perlu ribet bikin getter/setter manual. Bisa pake `public private(set)` juga biar cuma bisa diubah di dalem kelas.
 
@@ -1083,6 +1135,10 @@ echo $bankAccount->getBalance(); // 900
 ## Kelas (Classes)
 
 ### Lebih pilih composition over inheritance
+
+**Kenapa ini penting?**
+Inheritance itu bikin hubungan yang kaku banget. Kalo lu ubah kelas induk, turunannya bisa berantakan semua. Composition lebih fleksibel, lu tinggal 'rakit' apa yang lu butuhin. Slay!
+
 
 **Bad:**
 ```php
@@ -1227,6 +1283,10 @@ $car->dump();
 
 ### Lebih pilih final classes
 
+**Kenapa ini penting?**
+Biar kelas lu gak sembarangan di-extend sama orang lain. Ini ngebantu enkapsulasi dan mastiin kelas lu tetep solid sesuai niat awalnya. Gak usah sok asik warisin semuanya.
+
+
 **Bad:**
 ```php
 class City
@@ -1268,6 +1328,10 @@ final class City
 ## SOLID
 
 ### Single Responsibility Principle (SRP)
+
+**Kenapa ini penting?**
+Kalo satu kelas ngerjain semuanya, pas ada satu fitur yang mau diubah, lu malah ngerusak fitur lain yang gak nyambung. Ini namanya *fragility*. Dengan SRP, kode lu jadi lebih fokus, gampang ditest, dan gak bikin pusing pas mau di-maintain. Satu alasan buat berubah aja, no cap!
+
 
 **Bad:**
 ```php
@@ -1335,6 +1399,10 @@ class UserSettings
 **[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
 ### Open/Closed Principle (OCP)
+
+**Kenapa ini penting?**
+Software itu harus 'terbuka' buat ditambahin fitur baru tapi 'tertutup' buat modifikasi kode yang udah jalan. Bayangin kalo tiap nambah fitur lu harus bongkar pasang kode lama, resiko bug-nya gede banget (red flag!). Pake interface atau polimorfisme biar lu tinggal nambahin kelas baru tanpa nyentuh logika yang udah stabil. Slay!
+
 
 **Bad:**
 ```php
@@ -1420,6 +1488,10 @@ class HttpMailer
 **[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
 ### Liskov Substitution Principle (LSP)
+
+**Kenapa ini penting?**
+Intinya, kelas turunan harus bisa gantiin kelas induknya tanpa bikin program lu error atau aneh. Kalo \`Square\` nurunin \`Rectangle\` tapi malah ngerusak ekspektasi luas bangun datar, itu tandanya abstraksi lu 'cooked'. Ini biar kode lu tetep adaptif dan gak bohongin dev lain. No cap!
+
 
 **Bad:**
 ```php
@@ -1529,6 +1601,10 @@ foreach ($shapes as $shape) {
 
 ### Interface Segregation Principle (ISP)
 
+**Kenapa ini penting?**
+Jangan paksa kelas buat implementasi fungsi yang dia gak butuhin. Gak jelas banget kan robot disuruh makan? Ini bikin kode lu jadi 'fat' dan kaku. Pecah interface-nya jadi kecil-kecil biar tiap kelas cuma dapet yang emang dia pake. Biar lebih clean dan gak berat.
+
+
 **Bad:**
 ```php
 interface Employee
@@ -1607,6 +1683,10 @@ class RobotEmployee implements Workable
 **[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
 ### Dependency Inversion Principle (DIP)
+
+**Kenapa ini penting?**
+Modul level tinggi gak boleh tergantung sama modul level rendah secara langsung. Dua-duanya harus tergantung sama abstraksi (interface). Ini kuncinya biar kode lu gak 'coupled' banget. Kalo lu ganti database atau library, lu gak perlu rombak total logika bisnis lu. Slay banget buat jangka panjang!
+
 
 **Bad:**
 ```php
