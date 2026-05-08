@@ -101,7 +101,7 @@ Kita tuh bakal lebih sering baca kode daripada nulis kode. Jadi penting banget b
 
 **Bad:**
 ```php
-// 448 ini apa coba? Gak jelas banget.
+// What the heck is 448 for?
 $result = $serializer->serialize($data, 448);
 ```
 
@@ -116,16 +116,16 @@ $json = $serializer->serialize($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT
 ```php
 class User
 {
-    // 7 ini apa? Red flag banget.
+    // What the heck is 7 for?
     public $access = 7;
 }
 
-// 4 ini buat apa? Chaos banget.
+// What the heck is 4 for?
 if ($user->access & 4) {
     // ...
 }
 
-// Kenapa begini?
+// What's going on here?
 $user->access ^= 2;
 ```
 
@@ -134,19 +134,22 @@ $user->access ^= 2;
 class User
 {
     public const ACCESS_READ = 1;
+
     public const ACCESS_CREATE = 2;
+
     public const ACCESS_UPDATE = 4;
+
     public const ACCESS_DELETE = 8;
 
-    // User default-nya bisa baca, bikin, sama update sesuatu. Slay!
+    // User as default can read, create and update something
     public $access = self::ACCESS_READ | self::ACCESS_CREATE | self::ACCESS_UPDATE;
 }
 
 if ($user->access & User::ACCESS_UPDATE) {
-    // edit-edit manja ...
+    // do edit ...
 }
 
-// Cabut hak akses buat bikin sesuatu.
+// Deny access rights to create something
 $user->access ^= User::ACCESS_CREATE;
 ```
 
@@ -265,7 +268,10 @@ for ($i = 0; $i < count($l); $i++) {
     $li = $l[$i];
     doStuff();
     doSomeOtherStuff();
-    // Bentar, $li tadi apa ya? Lupa gue.
+    // ...
+    // ...
+    // ...
+    // Wait, what is `$li` for again?
     dispatch($li);
 }
 ```
@@ -277,6 +283,9 @@ $locations = ['Austin', 'New York', 'San Francisco'];
 foreach ($locations as $location) {
     doStuff();
     doSomeOtherStuff();
+    // ...
+    // ...
+    // ...
     dispatch($location);
 }
 ```
@@ -292,8 +301,12 @@ Kalo nama kelas atau objek lu udah jelas, gak usah diulang lagi di nama variabel
 class Car
 {
     public $carMake;
+
     public $carModel;
+
     public $carColor;
+
+    //...
 }
 ```
 
@@ -302,8 +315,12 @@ class Car
 class Car
 {
     public $make;
+
     public $model;
+
     public $color;
+
+    //...
 }
 ```
 
@@ -319,7 +336,7 @@ $a = '42';
 $b = 42;
 
 if ($a != $b) {
-    // Katanya beda, tapi kok lewat?
+    // The expression will always pass
 }
 ```
 
@@ -329,7 +346,7 @@ $a = '42';
 $b = 42;
 
 if ($a !== $b) {
-    // Nah, gini baru bener.
+    // The expression is verified
 }
 ```
 
@@ -590,7 +607,7 @@ function parseBetterPHPCode(string $code): void
 function createFile(string $name, bool $temp = false): void
 {
     if ($temp) {
-        touch('./temp/'.$name);
+        touch('./temp/' . $name);
     } else {
         touch($name);
     }
@@ -606,7 +623,7 @@ function createFile(string $name): void
 
 function createTempFile(string $name): void
 {
-    touch('./temp/'.$name);
+    touch('./temp/' . $name);
 }
 ```
 
@@ -652,7 +669,7 @@ var_dump($newName); // ['Ryan', 'McDermott']
 ```php
 function config(): array
 {
-    return  [
+    return [
         'foo' => 'bar',
     ];
 }
@@ -998,7 +1015,7 @@ class BankAccount
 
 $bankAccount = new BankAccount();
 
-// Beli sepatu...
+// Buy shoes...
 $bankAccount->balance -= 100;
 ```
 
@@ -1277,6 +1294,7 @@ class UserAuth
 class UserSettings
 {
     private $user;
+
     private $auth;
 
     public function __construct(User $user)
@@ -1388,6 +1406,7 @@ class HttpMailer
 class Rectangle
 {
     protected $width = 0;
+
     protected $height = 0;
 
     public function setWidth(int $width): void
@@ -1424,7 +1443,7 @@ function printArea(Rectangle $rectangle): void
     $rectangle->setWidth(4);
     $rectangle->setHeight(5);
 
-    // BAD: Bakal balikin 25 buat Square. Harusnya 20.
+    // BAD: Will return 25 for Square. Should be 20.
     echo sprintf('%s has area %d.', get_class($rectangle), $rectangle->getArea()) . PHP_EOL;
 }
 
@@ -1470,8 +1489,8 @@ class Square implements Shape
 
     public function getArea(): int
     {
-        return $this->length ** 2;
-    }
+        return $this->length ** 2;
+    }
 }
 
 function printArea(Shape $shape): void
@@ -1495,19 +1514,34 @@ foreach ($shapes as $shape) {
 interface Employee
 {
     public function work(): void;
+
     public function eat(): void;
 }
 
 class HumanEmployee implements Employee
 {
-    public function work(): void { /* ... */ }
-    public function eat(): void { /* ... */ }
+    public function work(): void
+    {
+        // ....working
+    }
+
+    public function eat(): void
+    {
+        // ...... eating in lunch break
+    }
 }
 
 class RobotEmployee implements Employee
 {
-    public function work(): void { /* ... */ }
-    public function eat(): void { /* Robot gak makan, tapi terpaksa implement. Chaos! */ }
+    public function work(): void
+    {
+        //.... working much more
+    }
+
+    public function eat(): void
+    {
+        //.... robot can't eat, but it must implement this method
+    }
 }
 ```
 
@@ -1529,13 +1563,24 @@ interface Employee extends Feedable, Workable
 
 class HumanEmployee implements Employee
 {
-    public function work(): void { /* ... */ }
-    public function eat(): void { /* ... */ }
+    public function work(): void
+    {
+        // ....working
+    }
+
+    public function eat(): void
+    {
+        //.... eating in lunch break
+    }
 }
 
+// robot can only work
 class RobotEmployee implements Workable
 {
-    public function work(): void { /* ... */ }
+    public function work(): void
+    {
+        // ....working
+    }
 }
 ```
 
@@ -1575,12 +1620,18 @@ interface Employee
 
 class Human implements Employee
 {
-    public function work(): void { /* ... */ }
+    public function work(): void
+    {
+        // ....working
+    }
 }
 
 class Robot implements Employee
 {
-    public function work(): void { /* ... */ }
+    public function work(): void
+    {
+        //.... working much more
+    }
 }
 
 class Manager
@@ -1637,11 +1688,7 @@ function showManagerList(array $managers): void
 function showList(array $employees): void
 {
     foreach ($employees as $employee) {
-        render([
-            $employee->calculateExpectedSalary(),
-            $employee->getExperience(),
-            $employee->getGithubLink()
-        ]);
+        render([$employee->calculateExpectedSalary(), $employee->getExperience(), $employee->getGithubLink()]);
     }
 }
 ```
