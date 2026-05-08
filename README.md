@@ -353,6 +353,26 @@ if ($a !== $b) {
 **[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
 ### Null coalescing operator (??)
+Ini operator kece yang ada sejak PHP 7. Pake `??` itu cara cepet (syntactic sugar) daripada lu ribet pake ternary sama `isset()`. Kalo nilai pertamanya ada dan gak null, itu yang diambil; kalo gak ada ya ambil nilai keduanya.
+
+**Bad:**
+```php
+if (isset($_GET['name'])) {
+    $name = $_GET['name'];
+} elseif (isset($_POST['name'])) {
+    $name = $_POST['name'];
+} else {
+    $name = 'nobody';
+}
+```
+
+**Good:**
+```php
+$name = $_GET['name'] ?? $_POST['name'] ?? 'nobody';
+```
+
+**[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
+
 
 ### Match Expression (PHP 8.0+)
 
