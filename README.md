@@ -10,37 +10,37 @@ Secara umum, kode itu dianggap 'clean' kalo vibes-nya dapet dan gampang dipahami
      * [Pake kosakata yang sama buat tipe variabel yang sama](#pake-kosakata-yang-sama-buat-tipe-variabel-yang-sama)
      * [Pake nama yang gampang dicari (Part 1)](#pake-nama-yang-gampang-dicari-part-1)
      * [Pake nama yang gampang dicari (Part 2)](#pake-nama-yang-gampang-dicari-part-2)
-     * [Pake variabel penjelas](#pake-variabel-penjelas)
-     * [Jangan nesting dalem-dalem, mending return cepet (Part 1)](#jangan-nesting-dalem-dalem-mending-return-cepet-part-1)
-     * [Jangan nesting dalem-dalem, mending return cepet (Part 2)](#jangan-nesting-dalem-dalem-mending-return-cepet-part-2)
+     * [Pake explanatory variables](#pake-variabel-penjelas)
+     * [Jangan nesting dalem-dalem, mending pake "early return" (Part 1)](#jangan-nesting-dalem-dalem-mending-pake-early-return-part-1)
+     * [Jangan nesting dalem-dalem, mending pake "early return" (Part 2)](#jangan-nesting-dalem-dalem-mending-pake-early-return-part-2)
      * [Hindari Mental Mapping](#hindari-mental-mapping)
-     * [Gak usah nambahin konteks yang gak perlu](#gak-usah-nambahin-konteks-yang-gak-perlu)
+     * [Gak usah nambahin unneeded context](#gak-usah-nambahin-konteks-yang-gak-perlu)
   3. [Perbandingan (Comparison)](#perbandingan-comparison)
      * [Pake identical comparison (===)](#pake-identical-comparison)
      * [Null coalescing operator (??)](#null-coalescing-operator)
-     * [Ekspresi Match (PHP 8.0+)](#ekspresi-match-php-80)
+     * [Match Expression (PHP 8.0+)](#ekspresi-match-php-80)
   4. [Fungsi (Functions)](#fungsi-functions)
      * [Pake default arguments daripada ribet pake kondisional](#pake-default-arguments-daripada-ribet-pake-kondisional)
-     * [Argumen fungsi (maksimal 2 biar gak pusing)](#argumen-fungsi-maksimal-2-biar-gak-pusing)
+     * [Function arguments (maksimal 2 biar gak pusing)](#argumen-fungsi-maksimal-2-biar-gak-pusing)
      * [Constructor Property Promotion (PHP 8.0+)](#constructor-property-promotion-php-80)
      * [Nama fungsi harus nunjukin apa yang dilakuin](#nama-fungsi-harus-nunjukin-apa-yang-dilakuin)
-     * [Fungsi cuma boleh satu level abstraksi](#fungsi-cuma-boleh-satu-level-abstraksi)
-     * [Jangan pake flag sebagai parameter fungsi](#jangan-pake-flag-sebagai-parameter-fungsi)
+     * [Fungsi cuma boleh satu level of abstraction](#fungsi-cuma-boleh-satu-level-abstraksi)
+     * [Jangan pake flag arguments](#jangan-pake-flag-sebagai-parameter-fungsi)
      * [Hindari Efek Samping (Side Effects)](#hindari-efek-samping)
-     * [Jangan nulis ke fungsi global](#jangan-nulis-ke-fungsi-global)
-     * [Jangan pake pola Singleton](#jangan-pake-pola-singleton)
-     * [Enkapsulasi kondisional](#enkapsulasi-kondisional)
-     * [Hindari kondisional negatif](#hindari-kondisional-negatif)
-     * [Hindari kondisional (Pake polimorfisme)](#hindari-kondisional)
-     * [Hindari cek tipe data (Part 1)](#hindari-cek-tipe-data-part-1)
-     * [Hindari cek tipe data (Part 2)](#hindari-cek-tipe-data-part-2)
+     * [Jangan nulis ke global functions](#jangan-nulis-ke-global-functions)
+     * [Jangan pake Singleton pattern](#jangan-pake-pola-singleton)
+     * [Encapsulate conditionals](#enkapsulasi-kondisional)
+     * [Hindari negative conditionals](#hindari-kondisional-negatif)
+     * [Hindari conditionals (Pake polimorfisme)](#hindari-kondisional)
+     * [Hindari type-checking (Part 1)](#hindari-type-checking-part-1)
+     * [Hindari type-checking (Part 2)](#hindari-type-checking-part-2)
      * [Hapus kode mati (Dead Code)](#hapus-kode-mati)
   5. [Objek dan Struktur Data](#objek-dan-struktur-data)
-     * [Pake enkapsulasi objek](#pake-enkapsulasi-objek)
-     * [Bikin member objek jadi private/protected](#bikin-member-objek-jadi-privateprotected)
+     * [Pake object encapsulation](#pake-object-encapsulation)
+     * [Bikin member objek jadi private/protected members](#bikin-member-objek-jadi-privateprotected)
      * [Property Hooks & Asymmetric Visibility (PHP 8.4+)](#property-hooks--asymmetric-visibility-php-84)
   6. [Kelas (Classes)](#kelas-classes)
-     * [Lebih pilih komposisi daripada warisan (inheritance)](#lebih-pilih-komposisi-daripada-warisan)
+     * [Lebih pilih composition over inheritance](#lebih-pilih-komposisi-daripada-warisan)
      * [Hindari fluent interfaces](#hindari-fluent-interfaces)
      * [Lebih pilih final classes](#lebih-pilih-final-classes)
   7. [SOLID](#solid)
@@ -155,7 +155,7 @@ $user->access ^= User::ACCESS_CREATE;
 
 **[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
-### Pake variabel penjelas
+### Pake explanatory variables
 
 **Bad:**
 ```php
@@ -177,7 +177,7 @@ saveCityZipCode($matches['city'], $matches['zipCode']);
 
 **[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
-### Jangan nesting dalem-dalem, mending return cepet (Part 1)
+### Jangan nesting dalem-dalem, mending pake "early return" (Part 1)
 
 Kebanyakan if-else bikin kode lu jadi kayak labirin, pusing bacanya. Mending jujur dan to the point aja.
 
@@ -219,7 +219,7 @@ function isShopOpen(string $day): bool
 
 **[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
-### Jangan nesting dalem-dalem, mending return cepet (Part 2)
+### Jangan nesting dalem-dalem, mending pake "early return" (Part 2)
 
 **Bad:**
 ```php
@@ -292,7 +292,7 @@ foreach ($locations as $location) {
 
 **[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
-### Gak usah nambahin konteks yang gak perlu
+### Gak usah nambahin unneeded context
 
 Kalo nama kelas atau objek lu udah jelas, gak usah diulang lagi di nama variabelnya. Capek tau.
 
@@ -354,7 +354,7 @@ if ($a !== $b) {
 
 ### Null coalescing operator (??)
 
-### Ekspresi Match (PHP 8.0+)
+### Match Expression (PHP 8.0+)
 
 Kalo lu punya banyak kondisi, mending pake `match` daripada `switch`. Lebih ringkas, lebih aman, dan gak perlu pake `break` yang bikin ribet. Slay banget!
 
@@ -428,7 +428,7 @@ function createMicrobrewery(string $breweryName = 'Hipster Brew Co.'): void
 
 **[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
-### Argumen fungsi (maksimal 2 biar gak pusing)
+### Function arguments (maksimal 2 biar gak pusing)
 
 ### Constructor Property Promotion (PHP 8.0+)
 
@@ -541,7 +541,7 @@ addMonthToDate(1, $date);
 
 **[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
-### Fungsi cuma boleh satu level abstraksi
+### Fungsi cuma boleh satu level of abstraction
 
 **Bad:**
 ```php
@@ -600,7 +600,7 @@ function parseBetterPHPCode(string $code): void
 
 **[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
-### Jangan pake flag sebagai parameter fungsi
+### Jangan pake flag arguments
 
 **Bad:**
 ```php
@@ -663,7 +663,7 @@ var_dump($newName); // ['Ryan', 'McDermott']
 
 **[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
-### Jangan nulis ke fungsi global
+### Jangan nulis ke global functions
 
 **Bad:**
 ```php
@@ -699,7 +699,7 @@ $configuration = new Configuration([
 
 **[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
-### Jangan pake pola Singleton
+### Jangan pake Singleton pattern
 
 **Bad:**
 ```php
@@ -744,7 +744,7 @@ $connection = new DBConnection('sqlite::memory:');
 
 **[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
-### Enkapsulasi kondisional
+### Encapsulate conditionals
 
 **Bad:**
 ```php
@@ -762,7 +762,7 @@ if ($article->isPublished()) {
 
 **[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
-### Hindari kondisional negatif
+### Hindari negative conditionals
 
 **Bad:**
 ```php
@@ -780,7 +780,7 @@ if ($node->isRoot()) {
 
 **[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
-### Hindari kondisional (Pake polimorfisme)
+### Hindari conditionals (Pake polimorfisme)
 
 **Bad:**
 ```php
@@ -844,7 +844,7 @@ class Cessna implements Airplane
 
 **[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
-### Hindari cek tipe data (Part 1)
+### Hindari type-checking (Part 1)
 
 **Bad:**
 ```php
@@ -868,7 +868,7 @@ function travelToTexas(Vehicle $vehicle): void
 
 **[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
-### Hindari cek tipe data (Part 2)
+### Hindari type-checking (Part 2)
 
 **Bad:**
 ```php
@@ -925,7 +925,7 @@ inventoryTracker('apples', $request, 'www.inventory-awesome.io');
 
 ## Objek dan Struktur Data
 
-### Pake enkapsulasi objek
+### Pake object encapsulation
 
 **Bad:**
 ```php
@@ -966,7 +966,7 @@ echo $employee->getName(); // John Doe
 
 **[⬆ balik ke atas](#daftar-isi-biar-gak-nyasar)**
 
-### Bikin member objek jadi private/protected
+### Bikin member objek jadi private/protected members
 
 ### Property Hooks & Asymmetric Visibility (PHP 8.4+)
 
@@ -1062,7 +1062,7 @@ echo $bankAccount->getBalance(); // 900
 
 ## Kelas (Classes)
 
-### Lebih pilih komposisi daripada warisan (inheritance)
+### Lebih pilih composition over inheritance
 
 **Bad:**
 ```php
